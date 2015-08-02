@@ -42,7 +42,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 		        function(data){ simply.body("Fallo al enviar") }
 	        );
 	    });
-	};
+	}
 	else{
 		simply.body('Mapit necesita que el navegador web de tu telefono(Safari, Chrome) tenga los permisos de localizacion activados')
 	};
