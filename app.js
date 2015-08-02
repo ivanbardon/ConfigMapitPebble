@@ -17,8 +17,8 @@ navigator.geolocation.getCurrentPosition(function(pos){
 				  'Boton izquierdo Menu'
 		});
 		simply.on('singleClick', 'up', function(e){
-			var linkGoog = '<a href=#>Apple Maps</a>';
-			var linkAppl = '<a href=#>Google Maps</a>';
+			var linkGoog = '';
+			var linkAppl = 'http://maps.apple.com/?ll='+lat+','+lon;
 			var miss = 'Tu posicion en coordenadas de latitud y longitud'+
 				  '\nLat: '+ lat +
 				  '\nLon: '+ lon +
