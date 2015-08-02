@@ -8,22 +8,18 @@ navigator.geolocation.getCurrentPosition(function(pos){
 		var lon = pos.coords.longitude;
 		
 		simply.fullscreen(true);
+		simply.style('large');
+
 		
 		simply.text({
 			title:'Mapit',
-			body: 'Boton superior para guardar tu posicion\r'+
-				  'Boton central para mandar a alguien\r'+
-				  'Boton inferior para mandar un S.O.S\r'+
+			body: 'Boton superior para guardar tu posicion\n'+
+				  'Boton central para mandar a alguien\n'+
+				  'Boton inferior para mandar un S.O.S\n'+
 				  'Boton izquierdo Menu'
 		});
 		simply.on('singleClick', 'up', function(e){
-			var linkGoog = '';
-			var linkAppl = 'http://maps.apple.com/?ll='+lat+','+lon;
-			var miss = 'Tu posicion en coordenadas de latitud y longitud'+
-				  '\nLat: '+ lat +
-				  '\nLon: '+ lon +
-				  '\r'+linkAppl +
-				  '\r'+linkGoog;
+			var miss = '<a href="http://maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>';
 			ajax({
 				method: "POST",
 		        url: "https://api.pushover.net/1/messages.json",
@@ -31,8 +27,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 		        	token: "a9UDP7Mvt5GCrvLKhjsqn1arqQ9jMm",
 			        user: "uo7oH8QGgC8CXVizfy4W3m6U2Q3zS1",
 			        device: "iphone",
-			        message: miss,
-			        html: 1
+			        message: miss
 			    	}
 		    	},
 		        function(data){
