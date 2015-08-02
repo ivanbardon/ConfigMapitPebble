@@ -20,7 +20,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 		});
 		simply.on('singleClick', 'up', function(e){
 			var miss = 	'<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
-						'\n<a href="http://google.com/maps/bylatlng?lat=' + lat + '&lng=' + lng+'"';
+						'\n<a href="http://google.com/maps/bylatlng?lat=' + lat + '&lng=' + lon+'"';
 			ajax({
 				method: "POST",
 		        url: "https://api.pushover.net/1/messages.json",
