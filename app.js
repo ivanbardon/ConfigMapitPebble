@@ -21,8 +21,8 @@ var posicionar = function(){
 			}, true);
 			simply.off('singleClick');
 			simply.on('singleClick', 'down', function(e){
-				var miss = '<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
-						'\n<a href="http://google.com/maps/@41.3890926,2.1751355,18z"';
+				var miss = '<a href="//maps.apple.com/?q='+lat+','+lon+'">Apple Maps</a>'+
+						'\n<a href="http://maps.google.com/maps?z=12&t=m&q=loc:'+lat+'+'+lon+'"</a>';
 				ajax({
 					method: "POST",
 			        url: "https://api.pushover.net/1/messages.json",
