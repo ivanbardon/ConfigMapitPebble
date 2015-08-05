@@ -13,14 +13,13 @@ navigator.geolocation.getCurrentPosition(function(pos){
 		
 		simply.text({
 			title:'Mapit',
-			body: 'Boton superior para guardar tu posicion\n'+
-				  'Boton central para mandar a alguien\n'+
-				  'Boton inferior para mandar un S.O.S\n'+
+			subtitle: 'Arriba mandar tu posicion a alguien\n'+
+				  'Central para guardar tu Posicion\n'+
+				  'Abajo para mandar un S.O.S\n'+
 				  'Boton izquierdo Menu'
 		});
-		simply.on('singleClick', 'up', function(e){
-			var miss = 	'<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
-						'\n<a href="http://google.com/maps/@' + lat + ',' + lon+',15z"';
+		simply.on('singleClick', 'down', function(e){
+			var miss = '';
 			ajax({
 				method: "POST",
 		        url: "https://api.pushover.net/1/messages.json",
