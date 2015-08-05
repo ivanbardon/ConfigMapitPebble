@@ -18,6 +18,7 @@ var posicionar = function(){
 					  'Central para mandar un S.O.S\n'+
 					  'Abajo para recibir tu Posicion\n'
 			});
+			simply.off('singleClick');
 			simply.on('singleClick', 'down', function(e){
 				var miss = '<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
 						'\n<a href="http://google.com/maps/@' + lat + ',' + lon+',15z"';
@@ -38,6 +39,7 @@ var posicionar = function(){
 			        		subtitle: 'Presiona cualquier boton para volver'
 			        	});
 			        	simply.off('singleClick');
+			        	simply.on('singleClick', posicionar)
 
 			        	
 			        },
