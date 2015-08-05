@@ -22,7 +22,7 @@ var posicionar = function(){
 			simply.off('singleClick');
 			simply.on('singleClick', 'down', function(e){
 				var miss = '<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
-						'\n<a href="http://google.com/maps/@' + lat + ',' + lon+',15z"';
+						'\n<a href="http://google.com/maps/@41.3890926,2.1751355,18z"';
 				ajax({
 					method: "POST",
 			        url: "https://api.pushover.net/1/messages.json",
