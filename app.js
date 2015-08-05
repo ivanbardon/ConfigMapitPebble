@@ -9,6 +9,7 @@ var posicionar = function(){
 			var lon = pos.coords.longitude;
 			
 			simply.fullscreen(true);
+			simply
 
 			
 			simply.text({
@@ -17,7 +18,7 @@ var posicionar = function(){
 				body: 'Arriba mandar tu posicion a alguien\n'+
 					  'Central para mandar un S.O.S\n'+
 					  'Abajo para recibir tu Posicion\n'
-			});
+			}, true);
 			simply.off('singleClick');
 			simply.on('singleClick', 'down', function(e){
 				var miss = '<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
