@@ -19,7 +19,8 @@ var posicionar = function(){
 					  'Abajo para recibir tu Posicion\n'
 			});
 			simply.on('singleClick', 'down', function(e){
-				var miss = '';
+				var miss = '<a href="//maps.apple.com/?ll='+lat+','+lon+'">Apple Maps</a>'+
+						'\n<a href="http://google.com/maps/@' + lat + ',' + lon+',15z"';
 				ajax({
 					method: "POST",
 			        url: "https://api.pushover.net/1/messages.json",
