@@ -1,56 +1,133 @@
-// Esta es una aplicacion GPS para el Pebble
+var UI = require('ui');
+var Light = require('ui/light');
+var ajax = require('ajax');
 
+var lat;
+var lon;
+var urlMaker = 'https://maker.ifttt.com/trigger/mapit/with/key/';
+var keyMaker = 'd9ueOfO0iQ8SHOS5ziKAMQ';
+Light.on('long');
 
-// solicitud de las coordenadas
-var posicionar = function(){
-	navigator.geolocation.getCurrentPosition(function(pos){
-		if(pos){
-			var lat = pos.coords.latitude;
-			var lon = pos.coords.longitude;
-			
-			simply.fullscreen(true);
-			simply
+var tarjetaLoader = new UI.Card({
+	title: 'Enviando',
+	subtitle: ''
+});
 
-			
-			simply.text({
-				style: 'large',
-				title:'Mapit',
-				body: 'Arriba mandar tu posicion a alguien\n'+
-					  'Central para mandar un S.O.S\n'+
-					  'Abajo para recibir tu Posicion\n'
-			}, true);
-			simply.off('singleClick');
-			simply.on('singleClick', 'down', function(e){
-				var miss = '<a href="//maps.apple.com/?q='+lat+','+lon+'">Apple Maps</a>'+
-						'\n<a href="http://maps.google.com/maps?z=12&t=m&q=loc:'+lat+'+'+lon+'"</a>';
-				ajax({
-					method: "POST",
-			        url: "https://api.pushover.net/1/messages.json",
-			        data: {
-			        	token: "a9UDP7Mvt5GCrvLKhjsqn1arqQ9jMm",
-				        user: "uo7oH8QGgC8CXVizfy4W3m6U2Q3zS1",
-				        device: "iphone",
-				        message: miss
-				    	}
-			    	},
-			        function(data){
-			        	simply.text({
-			        		style:'large',
-			        		title: 'Posicion enviada',
-			        		subtitle: 'Presiona cualquier boton para volver'
-			        	});
-			        	simply.off('singleClick');
-			        	simply.on('singleClick', posicionar)
-
-			        	
-			        },
-			        function(data){ simply.body("Fallo al enviar") }
-		        );
-		    });
-		}
-		else{
-			simply.body('Mapit necesita que el navegador web de tu telefono(Safari, Chrome) tenga los permisos de localizacion activados')
-		};
-	});
+var sendIfNotification = function(){
+	var ll = lat+','+lon;
+  ajax(
+    {
+      url: urlMaker+keyMaker,
+      method: 'POST',
+      data:{
+        "value1":'GoogleMaps '+'http://maps.google.com/maps?q=loc:'+ll,
+        "value2":'AppleMaps '+'http://maps.apple.com/?q='+ll
+      }
+    },
+    function(data){
+      console.log(data);
+      console.log('enviado');
+			tarjetaLoader.hide();
+    },
+    function(err){
+      console.log(err);
+      console.log('fallo al enviar');
+    }
+  );
 };
-posicionar();
+
+var tarjetaGPS = new UI.Card({
+	scrollable: true,
+	title: 'Info del GPS',
+	subtitle: '',
+	body: ''
+});
+tarjetaGPS.show();
+tarjetaGPS.on('click', 'select', function(e){
+	var menu = new UI.Menu({
+		sections: [{
+			title:'Mapit',
+			items: [
+				{
+					title: 'Enviar S.O.S',
+					subtitle: 'Contacto/s'
+				},
+				{
+					title: 'Casa',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Vehiculo',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Ocio',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Trabajo',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Ciudad',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Montaña',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Añadir icono'
+				},
+				{
+					title: 'Mapit',
+					icon: 'images/menu_icon.png',
+					subtitle: 'Un simple Mapit'
+				}]
+		}]
+	});
+	menu.show();
+	menu.on('select', function(e){
+      if (e.itemIndex===0){
+        sendIfNotification();
+				tarjetaLoader.show();
+				tarjetaLoader.subtitle('S.O.S');
+      }
+      else if(e.itemIndex >= 1){
+        tarjetaLoader.show();
+				tarjetaLoader.subtitle('Otro');
+      }
+    });
+});
+
+var locOpts = {
+	enableHighAccuracy: true,
+	maximumAge: 30000
+};
+function locBien(pos){
+	var pre = pos.coords.accuracy;
+	var vel = pos.coords.speed;
+	var alt = Math.round(pos.coords.altitude);
+	var dir = pos.coords.heading;
+	lat = pos.coords.latitude;
+	lon = pos.coords.longitude;
+	
+	tarjetaGPS.subtitle('Precisión: '+ pre + 'mts'+
+	'\nVelocidad: '+ vel + 'mts/s');
+	tarjetaGPS.body('Altitud: '+ alt + 'mts'+
+	'\nDirección: '+ dir +
+	'\nLat: '+ lat +
+	'\nLong: '+ lon);
+}
+function locMal(err){
+	console.log(err.code + 'Error: '+err.missage);
+}
+navigator.geolocation.watchPosition(locBien, locMal, locOpts);
+// Crear la página de configuración
+Pebble.addEventListener('showConfiguration', function(e) {
+  // Cargar la página de configuración
+  Pebble.openURL('http://ivanbardon.github.io/portfolio');
+});
