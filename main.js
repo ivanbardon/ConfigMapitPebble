@@ -1,11 +1,11 @@
-var urlMaker;
-var eventMaker;
 $(document).ready(function(){
-	$('#enviar').click(function () {
-		var urlMaker = $('#urlMakerVal').val();
-		var eventMaker = $('#eventMakerVal').val();
 
-		var options = { urlMaker: urlMaker, eventMaker: eventMaker };
+	var url = $('#urlMakerVal').val();
+	var evento = $('#eventMakerVal').val();
+
+	$('#enviar').click(function () {
+		
+		var options = { urlMaker: url, eventMaker: evento };
 		document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
 		console.log(JSON.stringify(options));
 	});
