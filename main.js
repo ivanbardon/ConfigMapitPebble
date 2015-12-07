@@ -1,5 +1,5 @@
-var urlMaker = $('#urlMakerVal').val();
-var eventMaker = $('#eventMakerVal').val();
+var urlMaker = $('#urlMakerVal').value();
+var eventMaker = $('#eventMakerVal').value();
 
 var options = { urlMaker: urlMaker, eventMaker: eventMaker };
 
