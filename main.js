@@ -1,9 +1,11 @@
-var urlMaker = $('#urlMakerVal').val();
-var eventMaker = $('#eventMakerVal').val();
+$(document).ready(function(){
+	var urlMaker = $('#urlMakerVal').val();
+	var eventMaker = $('#eventMakerVal').val();
 
-var options = { urlMaker: $('#urlMakerVal').val(), eventMaker: eventMaker };
+	var options = { urlMaker: urlMaker, eventMaker: eventMaker };
 
-$('#enviar').click(function () {
-	document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
-	console.log(JSON.stringify(options));
+	$('#enviar').click(function () {
+		document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
+		console.log(JSON.stringify(options));
+	});
 });
