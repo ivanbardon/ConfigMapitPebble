@@ -7,6 +7,5 @@ $(document).ready(function(){
 		
 		var options = { urlMaker: url, eventMaker: evento };
 		document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
-		console.log(JSON.stringify(options));
 	});
 });
