@@ -1,7 +1,9 @@
+var url;
+var evento;
 $(document).ready(function(){
 
-	var url = $('#urlMakerVal').val();
-	var evento = $('#eventMakerVal').val();
+	url = $('#urlMakerVal').val();
+	evento = $('#eventMakerVal').val();
 
 	$('#enviar').click(function () {
 		
