@@ -1,7 +1,7 @@
 var urlMaker;
 var eventMaker;
 $(document).ready(function(){
-	$('#enviar').click(function () {
+	$('#save').click(function () {
 		var urlMaker = $('#urlMakerVal').val();
 		var eventMaker = $('#eventMakerVal').val();
 
